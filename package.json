@@ -1,0 +1,24 @@
+{
+  "name": "lost-and-lucky-labs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "server",
+    "client",
+    "admin",
+    "scripts"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client,admin -c blue,green,magenta \"npm run dev -w server\" \"npm run dev -w client\" \"npm run dev -w admin\"",
+    "build": "npm run build -w client && npm run build -w admin",
+    "test": "npm run test:server && npm run test:client && npm run test:admin && npm run test:scripts",
+    "test:server": "npm test -w server",
+    "test:client": "npm test -w client",
+    "test:admin": "npm test -w admin",
+    "test:scripts": "npm test -w scripts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

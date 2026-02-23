@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Database
+data/
+
+# Environment
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project uploads
+images/projects/
+images/logo/
