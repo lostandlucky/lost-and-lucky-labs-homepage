@@ -1,0 +1,35 @@
+-- Default settings
+INSERT OR IGNORE INTO settings (key, value) VALUES
+    ('site_title', 'LOST & LUCKY LABS'),
+    ('site_tagline', 'Built for you, not the masses'),
+    ('contact_email', 'your-email@example.com'),
+    ('contact_phone', '(555) 555-0100'),
+    ('instagram_url', 'https://www.instagram.com/lostandluckylabs/?hl=en'),
+    ('hero_cta_text', 'Inquire Here'),
+    ('contact_heading', 'What would you like built today?'),
+    ('contact_success_message', 'Thank you for your inquiry! We will get back to you shortly.');
+
+-- 17 Projects
+INSERT OR IGNORE INTO projects (slug, title, description, sort_order, is_published) VALUES
+    ('ornate-zebrawood-mirror', 'Ornate Zebrawood Mirror', 'The solid zebrawood frame was cut into thin strips, soaked in water, curved into shape, glued together, and fitted with mirror glass. The result is an ornate, flowing frame that highlights the distinctive striped grain pattern of zebrawood.', 1, 1),
+    ('wood-inlay-cutting-board', 'Wood Inlay Cutting Board', 'A decorative cutting board crafted from multiple wood types. The base uses curly maple, creating the wavy pattern in the grain, while padauk wood provides the rose petals with an orange glow. Dark rosewood outlines complete the design. The board is finished with Rubio Monocoat, providing a food-safe finish.', 2, 1),
+    ('led-storefront-sign', 'LED Storefront Sign', 'This prototype evolved into a final product for a local gym franchise. The system runs on a Raspberry Pi and displays uploaded GIFs resized to fit a 24x55 LED matrix resolution. It calculates which portion of the GIF is visible within the logo letters and sends only that information to the LEDs.', 3, 1),
+    ('custom-video-arcade', 'Custom Video Arcade', 'A custom-built video arcade cabinet (also known as "Guncade"). A 3D model of each panel and their placement was created using a CAD program, with CNC cutting used for complex components. The visual design draws inspiration from NES controller aesthetics and nostalgic gaming elements. The system runs on a Raspberry Pi 4 with an I-PAC controller interface. The marquee uses a shadow box technique with translucent acrylic and white LEDs for backlighting.', 4, 1),
+    ('box-elder-slab-coffee-table', 'Box Elder Slab Coffee Table', 'A custom coffee table crafted from box elder maple slab wood featuring distinctive pink streaks running through the wood. Deep cracks in the original slab were filled with epoxy for a seamless finish. The piece underwent planing, sanding, and was sealed with Rubio Monocoat. Custom steel legs with a cross-hatch pattern and ground, black-painted welds complete the modern aesthetic.', 5, 1),
+    ('resin-memorabilia', 'Resin Filled Memorabilia', 'To make these signs, an image is carved into a walnut panel using a CNC, creating separate troughs for the different colors of resin. Mica powder is used to color the resin, which is carefully poured into each trough. After curing, the piece is sanded smooth and finished with a gloss coating.', 6, 1),
+    ('resin-filled-branding-on-a-wooden-slab-bench', 'Resin Filled Branding on Wooden Slab Benches', 'Two custom benches crafted from live edge Ambrosia Maple slabs. A CNC router was used to carve gym branding into the wood, then those carved sections were filled with Mica powder-tinted resin. Following this, a flood coat was applied for a polished finish. The benches feature custom steel legs coated in black paint for rust protection.', 7, 1),
+    ('laser-etched-pet-glasses', 'Laser Etched Pet Glasses', 'CO2 lasers are not capable of actually "engraving" glass. Instead, the laser superheats microscopic air bubbles trapped inside the glass walls. The process requires advanced image filtering to achieve detailed pet portraits on the glass surface, creating a frosted appearance.', 8, 1),
+    ('world-series-wooden-bat-mugs', 'World Series Wooden Bat Mug', 'These mugs were made from maple slabs turned on a lathe to resemble baseball bats. The design includes expanded bottoms for stability, laser-engraved World Series Championship logos, and food-safe resin filling with Polycrylic coating for waterproofing.', 9, 1),
+    ('personalized-pens', 'Hand Made Personalized Pens for Teachers', 'These pens were made as a gift for a group of elementary school teachers during Teacher Appreciation Week. The Walnut pens were turned on a lathe and polished to a smooth sheen. Each pen was then inscribed with the receiving teacher''s name using a laser.', 10, 1),
+    ('copper-inlay-on-rosewood-sign', 'Copper Inlay on Rosewood Sign', 'A handcrafted wooden sign featuring rosewood planks joined together and laser engraved with a family household logo. The defining technique involves 8-gauge wire that was flattened using a rolling mill, annealed, and carefully hand-fitted into the engraved design. After sanding and finishing with polyurethane spray coating, the result combines rustic wood aesthetics with metallic inlay work.', 11, 1),
+    ('crotch-wood-slab-coffee-table', 'Crotch Wood Slab Coffee Table', 'This coffee table was made from a piece of maple crotch wood. The raw slab was planed using a CNC router and sanded down to create a smooth surface. The piece features a natural wood finish sealed with Rubio Monocoat and minimalist hairpin legs.', 12, 1),
+    ('laser-engravings', 'Laser Engravings', 'Laser engravers have the amazing ability to easily customize just about any type of decor. From family crests, to favorite holiday scores, to pictures of pets. Below are some samples of the many laser engraved pieces we have delivered.', 13, 1),
+    ('hometown-memorabilia', 'Hometown Memorabilia', 'A walnut plaque laser cut to resemble the State of South Carolina, with engraved state flag imagery and white paint accents. The piece is finished with polyurethane for protection.', 14, 1),
+    ('chipping-challenge-backyard-game', 'Chipping Challenge Backyard Game', 'This backyard game was constructed using pine lumber, stained and coated with polyurethane for protection. Artificial turf adds a golfing aesthetic while also providing padded landing for golf balls. Scoring: 1 point for hitting the board, 3 points for sinking into the large hole, and 5 points for either smaller hole.', 15, 1),
+    ('custom-branded-plyometric-boxes', 'Custom Branded Plyometric Boxes', 'Fitness equipment featuring multi-height plyometric boxes enhanced with laser-engraved gym branding. Multiple step-up heights in a single box, depending on which surface you face towards the ground. Additional practical features include orientation arrows and side handles for improved usability.', 16, 1),
+    ('customized-toddler-step-stools', 'Custom Toddler Step Stools', 'Rustic step stools crafted from Pine 2"x8" lumber with personalized laser-engraved names on masked tops. The stools are finished with paint and polyurethane coating for water protection.', 17, 1);
+
+-- Default admin user (password: 'admin123' - should be changed in production)
+-- bcrypt hash for 'admin123' with 10 rounds
+INSERT OR IGNORE INTO admin_users (username, password_hash) VALUES
+    ('admin', '$2b$10$YourHashHere');

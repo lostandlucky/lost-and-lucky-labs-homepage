@@ -10,13 +10,21 @@
     "scripts"
   ],
   "scripts": {
-    "dev": "concurrently -n server,client,admin -c blue,green,magenta \"npm run dev -w server\" \"npm run dev -w client\" \"npm run dev -w admin\"",
-    "build": "npm run build -w client && npm run build -w admin",
+    "dev": "concurrently -n server,client,admin -c blue,green,magenta \"npm run dev:server\" \"npm run dev:client\" \"npm run dev:admin\"",
+    "dev:client": "npm -w client run dev",
+    "dev:server": "npm -w server run dev",
+    "dev:admin": "npm -w admin run dev",
+    "build": "npm -w client run build && npm -w admin run build",
+    "start": "npm -w server run start",
+    "setup": "node scripts/setup.js",
+    "scrape-images": "node scripts/scrape-images.js",
+    "seed": "node scripts/seed-database.js",
     "test": "npm run test:server && npm run test:client && npm run test:admin && npm run test:scripts",
-    "test:server": "npm test -w server",
-    "test:client": "npm test -w client",
-    "test:admin": "npm test -w admin",
-    "test:scripts": "npm test -w scripts"
+    "test:server": "npm -w server run test",
+    "test:client": "npm -w client run test",
+    "test:admin": "npm -w admin run test",
+    "test:scripts": "npm -w scripts run test",
+    "test:watch": "npx vitest --watch"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
