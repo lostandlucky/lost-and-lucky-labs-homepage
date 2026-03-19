@@ -8,12 +8,18 @@ function renderWithRouter(ui) {
 }
 
 describe('Header', () => {
-  it('renders logo image linking to homepage', () => {
+  it('renders text logo linking to homepage', () => {
     renderWithRouter(<Header />);
-    const logo = screen.getByAltText(/lost.*lucky/i);
+    const logo = screen.getByText('LOST & LUCKY LABS');
     expect(logo).toBeInTheDocument();
-    const link = logo.closest('a');
-    expect(link).toHaveAttribute('href', '/');
+    expect(logo.closest('a')).toHaveAttribute('href', '/');
+  });
+
+  it('renders logo with heading font and brand color', () => {
+    renderWithRouter(<Header />);
+    const logo = screen.getByText('LOST & LUCKY LABS');
+    expect(logo).toHaveClass('font-heading');
+    expect(logo).toHaveClass('text-[#1a3a5c]');
   });
 
   it('renders Portfolio, Contact, and Instagram nav links', () => {
@@ -22,6 +28,12 @@ describe('Header', () => {
     expect(screen.getByText(/contact/i)).toBeInTheDocument();
     const instagram = screen.getByLabelText(/instagram/i);
     expect(instagram).toBeInTheDocument();
+  });
+
+  it('nav links use body font', () => {
+    renderWithRouter(<Header />);
+    const portfolio = screen.getByText(/portfolio/i);
+    expect(portfolio).toHaveClass('font-body');
   });
 
   it('shows hamburger menu button on mobile viewport', () => {

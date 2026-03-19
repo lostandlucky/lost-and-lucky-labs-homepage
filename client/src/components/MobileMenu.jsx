@@ -8,14 +8,14 @@ export default function MobileMenu({ isOpen, onClose }) {
       <nav className="flex flex-col gap-4">
         <Link
           to="/#portfolio"
-          className="text-sm uppercase tracking-[2px] text-[#333]"
+          className="font-body text-base text-[#333]"
           onClick={onClose}
         >
           Portfolio
         </Link>
         <Link
           to="/contact-us"
-          className="text-sm uppercase tracking-[2px] text-[#333]"
+          className="font-body text-base text-[#333]"
           onClick={onClose}
         >
           Contact

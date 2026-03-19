@@ -20,12 +20,26 @@ describe('PortfolioGrid', () => {
   it('displays projects in sort_order', () => {
     render(<BrowserRouter><PortfolioGrid projects={mockProjects} /></BrowserRouter>);
     const titles = screen.getAllByTestId('project-card-title').map(el => el.textContent);
-    expect(titles).toEqual(['Project A', 'Project B', 'Project C']);
+    expect(titles[0]).toBe('Project A');
+    expect(titles[1]).toBe('Project B');
+    expect(titles[2]).toBe('Project C');
   });
 
-  it('renders the correct number of project cards', () => {
+  it('renders API projects plus the extra laser engraved pet cutting board entry', () => {
     render(<BrowserRouter><PortfolioGrid projects={mockProjects} /></BrowserRouter>);
     const cards = screen.getAllByTestId('project-card');
-    expect(cards).toHaveLength(3);
+    expect(cards).toHaveLength(4); // 3 API + 1 extra entry
+  });
+
+  it('includes Laser Engraved Pet Cutting Board as the last entry', () => {
+    render(<BrowserRouter><PortfolioGrid projects={mockProjects} /></BrowserRouter>);
+    expect(screen.getByText('Laser Engraved Pet Cutting Board')).toBeInTheDocument();
+  });
+
+  it('extra entry links to /laser-engravings', () => {
+    render(<BrowserRouter><PortfolioGrid projects={mockProjects} /></BrowserRouter>);
+    const petBoard = screen.getByText('Laser Engraved Pet Cutting Board');
+    const link = petBoard.closest('a');
+    expect(link).toHaveAttribute('href', '/laser-engravings');
   });
 });

@@ -5,13 +5,13 @@ export default function Footer() {
     <footer role="contentinfo" className="border-t border-[#e0e0e0] bg-white py-10 px-5">
       <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-center gap-6">
         <nav className="flex items-center gap-6">
-          <Link to="/" className="text-sm uppercase tracking-[2px] text-[#333] hover:text-[#1a3a5c]">
+          <Link to="/" className="font-body text-base text-[#333] hover:text-[#1a3a5c]">
             Home
           </Link>
-          <Link to="/#portfolio" className="text-sm uppercase tracking-[2px] text-[#333] hover:text-[#1a3a5c]">
+          <Link to="/#portfolio" className="font-body text-base text-[#333] hover:text-[#1a3a5c]">
             Portfolio
           </Link>
-          <Link to="/contact-us" className="text-sm uppercase tracking-[2px] text-[#333] hover:text-[#1a3a5c]">
+          <Link to="/contact-us" className="font-body text-base text-[#333] hover:text-[#1a3a5c]">
             Contact
           </Link>
         </nav>

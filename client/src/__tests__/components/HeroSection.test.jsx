@@ -31,4 +31,22 @@ describe('HeroSection', () => {
     render(<BrowserRouter><HeroSection settings={custom} /></BrowserRouter>);
     expect(screen.getByText('Get Started')).toBeInTheDocument();
   });
+
+  it('has a background image', () => {
+    render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    const section = screen.getByTestId('hero-section');
+    expect(section.style.backgroundImage).toContain('hero-bg.png');
+  });
+
+  it('has a dark overlay for text readability', () => {
+    render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    const overlay = screen.getByTestId('hero-overlay');
+    expect(overlay).toBeInTheDocument();
+  });
+
+  it('renders title and tagline in white text', () => {
+    render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    const title = screen.getByText('LOST & LUCKY LABS');
+    expect(title).toHaveClass('text-white');
+  });
 });

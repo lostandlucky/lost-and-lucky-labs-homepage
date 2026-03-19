@@ -33,14 +33,29 @@ describe('HomePage', () => {
     });
   });
 
-  it('renders HeroSection and PortfolioGrid', async () => {
+  it('renders HeroSection, PortfolioIntro, and PortfolioGrid', async () => {
     render(<BrowserRouter><HomePage /></BrowserRouter>);
     await waitFor(() => {
       expect(screen.getByText('LOST & LUCKY LABS')).toBeInTheDocument();
     });
+    expect(screen.getByText("Here are a few things we've worked on")).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByText('Test Project')).toBeInTheDocument();
     });
+  });
+
+  it('renders sections in correct order: hero, intro, portfolio', async () => {
+    render(<BrowserRouter><HomePage /></BrowserRouter>);
+    await waitFor(() => {
+      expect(screen.getByTestId('hero-section')).toBeInTheDocument();
+    });
+    const hero = screen.getByTestId('hero-section');
+    const intro = screen.getByTestId('portfolio-intro');
+    const portfolio = document.getElementById('portfolio');
+
+    // Verify DOM ordering
+    expect(hero.compareDocumentPosition(intro) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(intro.compareDocumentPosition(portfolio) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it('fetches projects and settings on mount', async () => {

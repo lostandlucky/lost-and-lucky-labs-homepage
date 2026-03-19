@@ -16,9 +16,9 @@ export default function ProjectCard({ project }) {
           />
         </div>
       )}
-      <h3 data-testid="project-card-title" className="mt-3 text-lg md:text-xl font-semibold text-[#333]">
+      <p data-testid="project-card-title" className="mt-3 font-body text-sm text-black">
         {project.title}
-      </h3>
+      </p>
     </Link>
   );
 }

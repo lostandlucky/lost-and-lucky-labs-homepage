@@ -3,6 +3,7 @@ import { fetchProjects, fetchSettings } from '../lib/api.js';
 import { useScrollToHash } from '../hooks/useScrollToHash.js';
 import Layout from '../components/Layout.jsx';
 import HeroSection from '../components/HeroSection.jsx';
+import PortfolioIntro from '../components/PortfolioIntro.jsx';
 import PortfolioGrid from '../components/PortfolioGrid.jsx';
 
 export default function HomePage() {
@@ -19,6 +20,7 @@ export default function HomePage() {
   return (
     <Layout>
       <HeroSection settings={settings} />
+      <PortfolioIntro />
       <PortfolioGrid projects={projects} />
     </Layout>
   );

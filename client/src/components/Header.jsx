@@ -8,19 +8,15 @@ export default function Header() {
   return (
     <header role="banner" className="fixed top-0 left-0 right-0 bg-white z-[1000] border-b border-[#e0e0e0]">
       <div className="max-w-[1200px] mx-auto px-5 md:px-[6vw] flex items-center justify-between h-[70px] md:h-[50px]">
-        <Link to="/">
-          <img
-            src="/images/logo/Lost&Lucky_Logo_Blue.png"
-            alt="Lost & Lucky Labs"
-            className="h-[50px] md:max-h-[30px] object-contain"
-          />
+        <Link to="/" className="font-heading font-bold text-[#1a3a5c] text-xl tracking-[4px]">
+          LOST & LUCKY LABS
         </Link>
 
         <nav data-testid="desktop-nav" className="hidden md:flex items-center gap-6">
-          <Link to="/#portfolio" className="text-sm uppercase tracking-[2px] text-[#333] hover:text-[#1a3a5c]">
+          <Link to="/#portfolio" className="font-body text-base text-[#333] hover:text-[#1a3a5c]">
             Portfolio
           </Link>
-          <Link to="/contact-us" className="text-sm uppercase tracking-[2px] text-[#333] hover:text-[#1a3a5c]">
+          <Link to="/contact-us" className="font-body text-base text-[#333] hover:text-[#1a3a5c]">
             Contact
           </Link>
           <a
