@@ -20,7 +20,7 @@
 | Section | Matches | Mismatches | Key Issues |
 |---------|---------|------------|------------|
 | Header | 4 | 1 | background-color (white vs black) |
-| Hero | 5 | 3 | text color, padding-top/bottom |
+| Hero | 5 | 5 | text color, padding, missing video bg, doesn't fill viewport |
 | Portfolio Intro | 5 | 0 | Clean |
 | Portfolio Grid | 5 | 2 | card width/height dimensions |
 | Project Detail | 2 | 3 | text color, background-color, letter-spacing |
@@ -29,7 +29,9 @@
 
 ### Notes for downstream phases
 - **Header background:** Clone has white bg, original has black. This is a significant visual difference.
-- **Hero padding:** Clone has 128px top+bottom, original has ~66px top / 0px bottom. The hero section is much taller in the clone.
+- **Hero padding:** Clone has 128px top+bottom, original has ~66px top / 0px bottom. The hero section is much taller in the clone. (Steve may prefer the taller version — see memory note.)
+- **Hero video background:** Original uses a YouTube video embed (`AHsceDsFEQs`) at 0.5x speed as the hero background. Clone uses a static image. The static image (`Macbook Facesketch Skin.png`) is the original's fallback poster.
+- **Hero viewport fill:** Original hero fills the full viewport (`section-height--large`, effectively 100vh). Clone hero is only ~426px tall.
 - **Letter-spacing on headings:** Project detail and contact page headings are missing ~7-10px letter-spacing that the original has (Cabin font with wide tracking).
 - **Text color `#333` vs `#000`:** Clone uses `rgb(51,51,51)` for heading text while original uses pure black. Appears on project detail and contact headings.
 - **Card dimensions:** Grid cards are wider (570 vs 367px) and taller (602 vs 490px). This is likely a layout/column difference rather than a per-card style issue.

@@ -301,6 +301,81 @@ test.describe('Visual Style Comparison', () => {
       delta: cloneBg && cloneBg !== 'none' ? 'both have bg image' : 'clone missing bg image',
     });
 
+    // Check for background video (original uses YouTube iframe)
+    const cloneVideo = await clonePage.evaluate((sel) => {
+      const hero = document.querySelector(sel);
+      if (!hero) return { hasVideo: false, hasIframe: false };
+      const videos = hero.querySelectorAll('video');
+      const iframes = hero.querySelectorAll('iframe');
+      const videoClassDivs = hero.querySelectorAll('[class*="video"]');
+      return {
+        hasVideo: videos.length > 0,
+        hasIframe: iframes.length > 0,
+        hasVideoDiv: videoClassDivs.length > 0,
+        videoCount: videos.length + iframes.length + videoClassDivs.length,
+      };
+    }, '[data-testid="hero-section"]');
+
+    const originalVideo = await originalPage.evaluate((sel) => {
+      const hero = document.querySelector(sel);
+      if (!hero) return { hasVideo: false, hasIframe: false };
+      const videos = hero.querySelectorAll('video');
+      const iframes = hero.querySelectorAll('iframe');
+      const videoClassDivs = hero.querySelectorAll('[class*="video"]');
+      return {
+        hasVideo: videos.length > 0,
+        hasIframe: iframes.length > 0,
+        hasVideoDiv: videoClassDivs.length > 0,
+        videoSrc: iframes[0]?.src || videos[0]?.src || null,
+      };
+    }, 'section[data-section-id]:nth-of-type(1)');
+
+    const cloneHasVideo = cloneVideo.hasVideo || cloneVideo.hasIframe || cloneVideo.hasVideoDiv;
+    const originalHasVideo = originalVideo.hasVideo || originalVideo.hasIframe || originalVideo.hasVideoDiv;
+
+    result.comparisons.push({
+      property: 'background-video',
+      clone: cloneHasVideo ? 'present' : 'none',
+      original: originalHasVideo ? `present (${originalVideo.videoSrc?.substring(0, 60)}...)` : 'none',
+      match: cloneHasVideo === originalHasVideo,
+      delta: cloneHasVideo === originalHasVideo ? 'both match' : 'clone missing video background',
+    });
+
+    // Check hero fills viewport (100vh)
+    const cloneHeroHeight = await clonePage.evaluate((sel) => {
+      const hero = document.querySelector(sel);
+      if (!hero) return null;
+      const styles = window.getComputedStyle(hero);
+      return {
+        height: hero.offsetHeight,
+        minHeight: styles.minHeight,
+        viewportHeight: window.innerHeight,
+        fillsViewport: hero.offsetHeight >= window.innerHeight * 0.9,
+      };
+    }, '[data-testid="hero-section"]');
+
+    const originalHeroHeight = await originalPage.evaluate((sel) => {
+      const hero = document.querySelector(sel);
+      if (!hero) return null;
+      const styles = window.getComputedStyle(hero);
+      return {
+        height: hero.offsetHeight,
+        minHeight: styles.minHeight,
+        viewportHeight: window.innerHeight,
+        fillsViewport: hero.offsetHeight >= window.innerHeight * 0.9,
+      };
+    }, 'section[data-section-id]:nth-of-type(1)');
+
+    result.comparisons.push({
+      property: 'hero-fills-viewport',
+      clone: cloneHeroHeight ? `${cloneHeroHeight.fillsViewport} (${cloneHeroHeight.height}px / ${cloneHeroHeight.viewportHeight}vh)` : 'missing',
+      original: originalHeroHeight ? `${originalHeroHeight.fillsViewport} (${originalHeroHeight.height}px / ${originalHeroHeight.viewportHeight}vh)` : 'missing',
+      match: cloneHeroHeight?.fillsViewport === originalHeroHeight?.fillsViewport,
+      delta: cloneHeroHeight?.fillsViewport === originalHeroHeight?.fillsViewport
+        ? 'both match'
+        : `clone ${cloneHeroHeight?.fillsViewport ? 'fills' : 'does not fill'} viewport`,
+    });
+
     allResults.push(result);
 
     expect(result.cloneFound, 'Clone hero element should exist').toBe(true);

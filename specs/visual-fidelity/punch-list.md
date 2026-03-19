@@ -1,6 +1,6 @@
 # Phase 5: Visual Verification — Punch List
 
-Generated: 2026-03-19T02:13:12.971Z
+Generated: 2026-03-19T02:42:21.838Z
 
 ## Header
 
@@ -24,6 +24,8 @@ Generated: 2026-03-19T02:13:12.971Z
 | padding-top | `128px` | `65.8438px` | **FAIL** | 62.1562px |
 | padding-bottom | `128px` | `0px` | **FAIL** | 128px |
 | background-image | `present` | `present (expected)` | PASS | both have bg image |
+| background-video | `none` | `present (https://www.youtube.com/embed/AHsceDsFEQs?autohide=1&autopla...)` | **FAIL** | clone missing video background |
+| hero-fills-viewport | `false (426px / 720vh)` | `true (752px / 720vh)` | **FAIL** | clone does not fill viewport |
 
 ## Portfolio Intro
 
@@ -83,6 +85,6 @@ Generated: 2026-03-19T02:13:12.971Z
 ## Summary
 
 - **Matches:** 28
-- **Mismatches:** 15
+- **Mismatches:** 17
 - **Missing elements:** 0
-- **Total comparisons:** 43
+- **Total comparisons:** 45
