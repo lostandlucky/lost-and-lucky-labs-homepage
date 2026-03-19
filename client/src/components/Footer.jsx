@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer role="contentinfo" className="border-t border-[#e0e0e0] bg-white py-10 px-5">
+    <footer role="contentinfo" className="border-t border-[#e0e0e0] bg-transparent py-0 px-5">
       <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-center gap-6">
         <nav className="flex items-center gap-6">
           <Link to="/" className="font-body text-base text-[#333] hover:text-[#1a3a5c]">

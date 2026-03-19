@@ -50,8 +50,10 @@ export default function App() {
     );
   }
 
+  const basename = import.meta.env.PROD ? '/admin' : '/';
+
   return (
-    <BrowserRouter basename="/admin">
+    <BrowserRouter basename={basename}>
       <AdminRoutes token={token} />
     </BrowserRouter>
   );

@@ -32,4 +32,4 @@ INSERT OR IGNORE INTO projects (slug, title, description, sort_order, is_publish
 -- Default admin user (password: 'admin123' - should be changed in production)
 -- bcrypt hash for 'admin123' with 10 rounds
 INSERT OR IGNORE INTO admin_users (username, password_hash) VALUES
-    ('admin', '$2b$10$YourHashHere');
+    ('admin', '$2b$10$uu6cy7d6F3GSIJwqr07nCOPNpSPZtqPPIJ0ndfrc1Ik.WVkKOy7AO');

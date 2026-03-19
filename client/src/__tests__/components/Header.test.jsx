@@ -15,11 +15,11 @@ describe('Header', () => {
     expect(logo.closest('a')).toHaveAttribute('href', '/');
   });
 
-  it('renders logo with heading font and brand color', () => {
+  it('renders logo with heading font and white color on black header', () => {
     renderWithRouter(<Header />);
     const logo = screen.getByText('LOST & LUCKY LABS');
     expect(logo).toHaveClass('font-heading');
-    expect(logo).toHaveClass('text-[#1a3a5c]');
+    expect(logo).toHaveClass('text-white');
   });
 
   it('renders Portfolio, Contact, and Instagram nav links', () => {

@@ -30,7 +30,7 @@ export default function ProjectPage() {
           />
         )}
 
-        <h1 className="text-2xl md:text-4xl font-semibold text-[#333] mt-8 mb-4">
+        <h1 className="text-2xl md:text-4xl font-semibold text-black tracking-[7.6px] bg-white/0 mt-8 mb-4">
           {project.title}
         </h1>
 

@@ -53,3 +53,47 @@ export async function scrapeProjectImages(slug, imagesDir) {
 
   return imageUrls.length;
 }
+
+const PROJECT_SLUGS = [
+  'ornate-zebrawood-mirror',
+  'wood-inlay-cutting-board',
+  'led-storefront-sign',
+  'custom-video-arcade',
+  'box-elder-slab-coffee-table',
+  'resin-memorabilia',
+  'resin-filled-branding-on-a-wooden-slab-bench',
+  'laser-etched-pet-glasses',
+  'world-series-wooden-bat-mugs',
+  'personalized-pens',
+  'copper-inlay-on-rosewood-sign',
+  'crotch-wood-slab-coffee-table',
+  'laser-engravings',
+  'hometown-memorabilia',
+  'chipping-challenge-backyard-game',
+  'custom-branded-plyometric-boxes',
+  'customized-toddler-step-stools',
+];
+
+async function main() {
+  const imagesDir = join(dirname(new URL(import.meta.url).pathname), '..', 'images');
+
+  console.log('Downloading logo...');
+  await downloadLogo(imagesDir);
+  console.log('Logo downloaded.');
+
+  for (const slug of PROJECT_SLUGS) {
+    process.stdout.write(`Scraping ${slug}...`);
+    const count = await scrapeProjectImages(slug, imagesDir);
+    console.log(` ${count} images.`);
+  }
+
+  console.log('Done! All images downloaded.');
+}
+
+const isMainModule = process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '/'));
+if (isMainModule) {
+  main().catch((err) => {
+    console.error('Scrape failed:', err.message);
+    process.exit(1);
+  });
+}

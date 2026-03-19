@@ -15,7 +15,7 @@ export default function ContactPage() {
   return (
     <Layout>
       <div className="py-16 text-center">
-        <h1 className="text-2xl md:text-4xl font-semibold text-[#333] mb-8">
+        <h1 className="text-2xl md:text-[44px] font-semibold text-black tracking-[9.6px] mb-8">
           {settings.contact_heading}
         </h1>
 

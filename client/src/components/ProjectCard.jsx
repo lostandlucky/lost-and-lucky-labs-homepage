@@ -12,7 +12,7 @@ export default function ProjectCard({ project }) {
           <img
             src={heroSrc}
             alt={project.hero_image?.alt_text || project.title}
-            className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full aspect-[4/5] object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
       )}
