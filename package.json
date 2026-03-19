@@ -24,6 +24,7 @@
     "test:client": "npm -w client run test",
     "test:admin": "npm -w admin run test",
     "test:scripts": "npm -w scripts run test",
+    "test:visual": "npm -w scripts run test:visual",
     "test:watch": "npx vitest --watch"
   },
   "devDependencies": {

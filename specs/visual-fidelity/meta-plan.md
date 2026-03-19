@@ -25,6 +25,8 @@ The Lost & Lucky Labs clone (`~/DoItClaude`) is functionally complete — all pa
 Phase 1 (typography + colors) ──→ Phase 2 (header logo) ──→ Phase 3 (hero + intro)
                                                                          ↓
 Phase 4 (18th portfolio entry) ─────────────────────────────────→ Phase 5 (verification)
+                                                                         ↓
+                                                                  Phase 6 (punch list fixes)
 ```
 
 - Phase 4 is independent — can run in parallel with Phases 1–3
@@ -127,3 +129,21 @@ Phase 4 (18th portfolio entry) ────────────────�
 
 **Risk flags:**
 - The live Squarespace site could change or go offline. Baseline screenshots should be captured early (Phase 1) and saved.
+
+---
+
+## Phase 6: Punch List Fixes
+
+**Goal:** Fix all remaining visual discrepancies identified by Phase 5's verification punch list. Each item gets a targeted fix with a corresponding test update or addition to prevent regression.
+
+**Dependencies:** Phase 5 (needs the punch list output).
+
+**Success criteria:**
+- Every item on the Phase 5 punch list is resolved or explicitly deferred with justification
+- Phase 5 verification tests re-run and pass within tolerance thresholds
+- All existing tests still pass
+- No new dependencies introduced unless strictly necessary
+
+**Risk flags:**
+- Punch list scope is unknown until Phase 5 completes — could range from minor tweaks to significant rework
+- Some discrepancies may be inherent to platform differences (Squarespace rendering vs. our stack) and need pragmatic tolerance decisions rather than pixel-perfect fixes
