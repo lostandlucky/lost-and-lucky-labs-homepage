@@ -51,13 +51,12 @@ export default function HeroSection({ settings }) {
 
   return (
     <section
-      className="relative text-white text-center pt-[66px] pb-0 min-h-screen bg-black bg-cover bg-center overflow-hidden"
+      className="relative text-white text-center pt-[66px] pb-0 min-h-screen bg-black bg-cover bg-center overflow-hidden w-screen -ml-[calc((100vw-100%)/2)] -mt-[70px] md:-mt-[50px]"
       style={{ backgroundImage: "url('/images/hero/hero-bg.png')" }}
       data-testid="hero-section"
     >
       <div
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ transform: 'scale(1.5)', transformOrigin: 'center center' }}
+        className="absolute inset-0 pointer-events-none [&_iframe]:absolute [&_iframe]:top-1/2 [&_iframe]:left-1/2 [&_iframe]:-translate-x-1/2 [&_iframe]:-translate-y-1/2 [&_iframe]:w-[177.78vh] [&_iframe]:h-[56.25vw] [&_iframe]:min-w-full [&_iframe]:min-h-full"
         data-testid="hero-video"
       >
         <div ref={containerRef} className="w-full h-full" />
