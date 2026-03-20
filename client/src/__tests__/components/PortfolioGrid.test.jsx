@@ -42,4 +42,10 @@ describe('PortfolioGrid', () => {
     const link = petBoard.closest('a');
     expect(link).toHaveAttribute('href', '/laser-engravings');
   });
+
+  it('uses masonry column layout', () => {
+    render(<BrowserRouter><PortfolioGrid projects={mockProjects} /></BrowserRouter>);
+    const section = screen.getAllByTestId('project-card')[0].closest('section');
+    expect(section).toHaveClass('md:columns-3');
+  });
 });

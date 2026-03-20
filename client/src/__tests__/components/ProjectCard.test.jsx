@@ -28,4 +28,17 @@ describe('ProjectCard', () => {
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', '/test-project');
   });
+
+  it('hides the title label by default and shows on hover', () => {
+    render(<BrowserRouter><ProjectCard project={mockProject} /></BrowserRouter>);
+    const title = screen.getByTestId('project-card-title');
+    expect(title).toHaveClass('opacity-0', 'group-hover:opacity-100', 'transition-opacity');
+    expect(title).toHaveClass('absolute', 'bottom-0', 'left-0');
+  });
+
+  it('styles the label with translucent background and Esteban font', () => {
+    render(<BrowserRouter><ProjectCard project={mockProject} /></BrowserRouter>);
+    const title = screen.getByTestId('project-card-title');
+    expect(title).toHaveStyle({ backgroundColor: 'rgba(245, 245, 245, 0.9)', fontFamily: 'Esteban, serif' });
+  });
 });
