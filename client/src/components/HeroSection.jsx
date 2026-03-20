@@ -62,7 +62,7 @@ export default function HeroSection({ settings }) {
         <div ref={containerRef} className="w-full h-full" />
       </div>
       <div className="absolute inset-0 bg-black/50 z-[1]" data-testid="hero-overlay" />
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
         <h1 className="text-3xl md:text-5xl font-bold text-white uppercase mb-4 tracking-[6px]">
           {settings.site_title}
         </h1>
