@@ -42,12 +42,45 @@ describe('ProjectPage', () => {
     });
   });
 
-  it('renders the hero image at full width', async () => {
+  it('renders the hero image', async () => {
     renderProjectPage();
     await waitFor(() => {
       const heroImg = screen.getByAltText('Hero');
       expect(heroImg).toBeInTheDocument();
       expect(heroImg).toHaveAttribute('src', '/images/projects/test-project/hero.jpg');
+    });
+  });
+
+  it('wraps hero image and text in a responsive flex container', async () => {
+    renderProjectPage();
+    await waitFor(() => {
+      const heroSection = screen.getByTestId('project-hero-section');
+      expect(heroSection).toHaveClass('flex', 'flex-col', 'md:flex-row');
+    });
+  });
+
+  it('places hero image in a half-width column on desktop', async () => {
+    renderProjectPage();
+    await waitFor(() => {
+      const heroImg = screen.getByAltText('Hero');
+      expect(heroImg.closest('[data-testid="project-hero-image"]')).toHaveClass('md:w-1/2');
+    });
+  });
+
+  it('places title and description in a half-width column on desktop', async () => {
+    renderProjectPage();
+    await waitFor(() => {
+      const textCol = screen.getByTestId('project-hero-text');
+      expect(textCol).toHaveClass('md:w-1/2');
+    });
+  });
+
+  it('renders title and description inside the text column', async () => {
+    renderProjectPage();
+    await waitFor(() => {
+      const textCol = screen.getByTestId('project-hero-text');
+      expect(textCol).toHaveTextContent('Test Project');
+      expect(textCol).toHaveTextContent('Test description');
     });
   });
 

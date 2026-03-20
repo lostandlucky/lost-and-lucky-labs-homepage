@@ -22,21 +22,27 @@ export default function ProjectPage() {
   return (
     <Layout>
       <div className="py-8">
-        {heroImage && (
-          <img
-            src={heroImage.url}
-            alt={heroImage.alt_text || project.title}
-            className="w-full object-cover"
-          />
-        )}
+        <div data-testid="project-hero-section" className="flex flex-col md:flex-row gap-8 mb-8">
+          {heroImage && (
+            <div data-testid="project-hero-image" className="md:w-1/2">
+              <img
+                src={heroImage.url}
+                alt={heroImage.alt_text || project.title}
+                className="w-full object-cover"
+              />
+            </div>
+          )}
 
-        <h1 className="text-2xl md:text-4xl font-semibold text-black tracking-[7.6px] bg-white/0 mt-8 mb-4">
-          {project.title}
-        </h1>
+          <div data-testid="project-hero-text" className="md:w-1/2 flex flex-col justify-center">
+            <h1 className="text-2xl md:text-4xl font-semibold text-black tracking-[7.6px] bg-white/0 mb-4">
+              {project.title}
+            </h1>
 
-        <p className="text-[#666] leading-relaxed mb-8">
-          {project.description}
-        </p>
+            <p className="text-[#666] leading-relaxed">
+              {project.description}
+            </p>
+          </div>
+        </div>
 
         {galleryImages.length > 0 && (
           <ImageGallery
