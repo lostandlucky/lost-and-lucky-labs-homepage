@@ -14,10 +14,6 @@ data/
 .DS_Store
 Thumbs.db
 
-# Project uploads
-images/projects/
-images/logo/
-
 # Claude Code
 .claude/
 

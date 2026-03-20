@@ -14,6 +14,7 @@ export default function HeroSection({ settings }) {
     }
 
     function createPlayer() {
+      if (!containerRef.current) return;
       playerRef.current = new window.YT.Player(containerRef.current, {
         videoId: 'AHsceDsFEQs',
         playerVars: {
