@@ -49,6 +49,13 @@ describe('HeroSection', () => {
     const title = screen.getByText('LOST & LUCKY LABS');
     expect(title).toHaveClass('text-white');
   });
+
+  it('vertically centers the text overlay within the hero', () => {
+    render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    const title = screen.getByText('LOST & LUCKY LABS');
+    const textContainer = title.parentElement;
+    expect(textContainer).toHaveClass('flex', 'items-center', 'justify-center', 'min-h-screen');
+  });
 });
 
 describe('HeroSection YouTube Player', () => {
