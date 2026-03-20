@@ -1,85 +1,52 @@
-# Lost & Lucky Labs Clone
+# Lost & Lucky Labs Homepage
 
-A React + Node.js + SQLite monorepo — a woodworking portfolio site clone.
+A faithful recreation of the [Lost & Lucky Labs](https://www.lostandluckylabs.com) woodworking portfolio site, built from scratch with React, Node.js, and SQLite. Originally a Squarespace site — now a fully custom monorepo with an admin panel.
 
-## Prerequisites
+## Features
 
-- Node.js 18+
-- npm 10+
+- Full-bleed hero with YouTube background video at 0.5x playback
+- Masonry portfolio grid with hover-reveal labels
+- Project detail pages with image galleries and lightbox
+- Contact form with email delivery
+- Admin panel for managing projects, images, settings, and contact submissions
+- 191 tests across all workspaces
+
+## Tech Stack
+
+- **Client**: React 18 + Vite + Tailwind CSS + React Router v6
+- **Admin**: Separate React SPA (same stack)
+- **Server**: Express + better-sqlite3 + JWT auth + multer + nodemailer
+- **Database**: SQLite
+- **Testing**: Vitest + React Testing Library
 
 ## Quick Start
 
 ```bash
-# 1. Clone and install
-git clone <repo-url>
-cd lostandlucky
+# Install dependencies
 npm install
 
-# 2. Set up environment
-cp .env.example .env
-# Edit .env with your values
+# Initialize database
+npm run setup
 
-# 3. Initialize database
-npm run setup        # Creates DB, runs schema, seeds data
-
-# 4. Download images from Squarespace (one-time)
+# Download images from original site (one-time)
 npm run scrape-images
 
-# 5. Start development servers
-npm run dev          # Starts client (:5173) + server (:3000) + admin (:5174)
+# Start dev servers
+npm run dev
 ```
+
+This starts the client at `:5173`, server at `:3000`, and admin at `:5174`.
 
 ## Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start all servers (client :5173, server :3000, admin :5174) |
-| `npm run dev:client` | Start client dev server only |
-| `npm run dev:server` | Start Express server only |
-| `npm run dev:admin` | Start admin dev server only |
+| `npm run dev` | Start all servers |
 | `npm run build` | Build client and admin for production |
 | `npm start` | Start production server |
 | `npm run setup` | Initialize database (schema + seed) |
-| `npm run scrape-images` | Download images from Squarespace |
-| `npm run seed` | Re-seed database with project data |
-| `npm test` | Run all tests |
-| `npm run test:server` | Run server tests |
-| `npm run test:client` | Run client tests |
-| `npm run test:admin` | Run admin tests |
-| `npm run test:scripts` | Run scripts tests |
-| `npm run test:watch` | Run tests in watch mode |
-
-## Environment Variables
-
-Copy `.env.example` to `.env` and fill in:
-
-| Variable | Description |
-|----------|-------------|
-| `PORT` | Server port (default: 3000) |
-| `NODE_ENV` | `development` or `production` |
-| `ADMIN_USERNAME` | Admin login username |
-| `ADMIN_PASSWORD_HASH` | bcrypt hash, set during `npm run setup` |
-| `JWT_SECRET` | Secret key for JWT tokens |
-| `SMTP_HOST` | SMTP server hostname |
-| `SMTP_PORT` | SMTP port (default: 587) |
-| `SMTP_USER` | SMTP username |
-| `SMTP_PASS` | SMTP password / app password |
-| `EMAIL_TO` | Recipient for contact form submissions |
-| `DB_PATH` | SQLite database file path |
-
-## Production Build
-
-```bash
-# Build both frontends
-npm run build
-
-# Output:
-#   client/dist/   → served by Express at /
-#   admin/dist/    → served by Express at /admin
-
-# Start production server
-NODE_ENV=production npm start
-```
+| `npm run scrape-images` | Download project images |
+| `npm test` | Run all 191 tests |
 
 ## Project Structure
 
@@ -87,5 +54,30 @@ NODE_ENV=production npm start
 ├── server/    # Express API + static file serving
 ├── client/    # Public-facing React app (Vite)
 ├── admin/     # Admin React app (Vite)
-└── scripts/   # Setup, seeding, and image scraping utilities
+├── scripts/   # Setup, seeding, and image scraping
+├── data/      # SQLite database
+├── images/    # Project images
+└── specs/     # Design specs and visual fidelity notes
+```
+
+## Environment Variables
+
+Copy `.env.example` to `.env`:
+
+| Variable | Description |
+|----------|-------------|
+| `PORT` | Server port (default: 3000) |
+| `NODE_ENV` | `development` or `production` |
+| `ADMIN_USERNAME` | Admin login username |
+| `ADMIN_PASSWORD_HASH` | bcrypt hash (set during setup) |
+| `JWT_SECRET` | Secret for JWT tokens |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | Email delivery |
+| `EMAIL_TO` | Contact form recipient |
+
+## Production
+
+```bash
+npm run build
+NODE_ENV=production npm start
+# Client served at /, Admin at /admin
 ```

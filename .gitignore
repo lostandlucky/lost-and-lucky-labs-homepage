@@ -17,3 +17,15 @@ Thumbs.db
 # Project uploads
 images/projects/
 images/logo/
+
+# Claude Code
+.claude/
+
+# Playwright MCP
+.playwright-mcp/
+
+# Screenshots
+*.png
+
+# Test results
+scripts/test-results/
