@@ -48,4 +48,10 @@ describe('PortfolioGrid', () => {
     const section = screen.getAllByTestId('project-card')[0].closest('section');
     expect(section).toHaveClass('md:columns-3');
   });
+
+  it('breaks out of container to span full viewport width', () => {
+    render(<BrowserRouter><PortfolioGrid projects={mockProjects} /></BrowserRouter>);
+    const section = screen.getAllByTestId('project-card')[0].closest('section');
+    expect(section).toHaveClass('w-screen');
+  });
 });
