@@ -50,6 +50,16 @@ describe('HeroSection', () => {
     expect(title).toHaveClass('text-white');
   });
 
+  it('applies large font size and drop shadow to title and tagline', () => {
+    render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    const title = screen.getByText('LOST & LUCKY LABS');
+    const tagline = screen.getByText('Built for you, not the masses');
+    expect(title).toHaveClass('md:text-[83px]', 'tracking-[18px]');
+    expect(title).toHaveStyle({ textShadow: '6px 3px 8px rgb(0, 0, 0)' });
+    expect(tagline).toHaveClass('md:text-[35px]', 'font-bold', 'tracking-[8px]');
+    expect(tagline).toHaveStyle({ textShadow: '6px 3px 8px rgb(0, 0, 0)' });
+  });
+
   it('vertically centers the text overlay within the hero', () => {
     render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
     const title = screen.getByText('LOST & LUCKY LABS');
