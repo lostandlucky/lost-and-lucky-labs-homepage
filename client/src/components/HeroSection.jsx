@@ -63,10 +63,16 @@ export default function HeroSection({ settings }) {
       </div>
       <div className="absolute inset-0 bg-black/50 z-[1]" data-testid="hero-overlay" />
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-3xl md:text-5xl font-bold text-white uppercase mb-4 tracking-[6px]">
+        <h1
+          className="text-4xl md:text-[83px] font-bold text-white uppercase mb-4 tracking-[18px] leading-tight"
+          style={{ textShadow: '6px 3px 8px rgb(0, 0, 0)' }}
+        >
           {settings.site_title}
         </h1>
-        <h4 className="text-lg md:text-xl text-white mb-8">
+        <h4
+          className="text-xl md:text-[35px] font-bold text-white mb-8 tracking-[8px]"
+          style={{ textShadow: '6px 3px 8px rgb(0, 0, 0)' }}
+        >
           {settings.site_tagline}
         </h4>
         <Link
