@@ -15,7 +15,7 @@ export default function PortfolioGrid({ projects }) {
   const allEntries = [...projects, ...EXTRA_ENTRIES];
 
   return (
-    <section id="portfolio" className="pb-16 columns-1 md:columns-3 gap-5">
+    <section id="portfolio" className="pb-16 columns-1 md:columns-3 gap-5 w-screen -ml-[calc((100vw-100%)/2)]  px-[calc((100vw-100%)/2)] md:px-14">
       {allEntries.map(project => (
         <div key={project.id} className="mb-5 break-inside-avoid">
           <ProjectCard project={project} />
