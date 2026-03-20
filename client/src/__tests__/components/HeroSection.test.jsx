@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { render, screen, cleanup } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import HeroSection from '../../components/HeroSection.jsx';
 
@@ -48,5 +48,60 @@ describe('HeroSection', () => {
     render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
     const title = screen.getByText('LOST & LUCKY LABS');
     expect(title).toHaveClass('text-white');
+  });
+});
+
+describe('HeroSection YouTube Player', () => {
+  let mockPlayer;
+  let capturedConfig;
+
+  beforeEach(() => {
+    mockPlayer = {
+      setPlaybackRate: vi.fn(),
+      playVideo: vi.fn(),
+      destroy: vi.fn(),
+    };
+
+    window.YT = {
+      Player: vi.fn((element, config) => {
+        capturedConfig = config;
+        return mockPlayer;
+      }),
+    };
+  });
+
+  afterEach(() => {
+    cleanup();
+    delete window.YT;
+    delete window.onYouTubeIframeAPIReady;
+  });
+
+  it('creates a YouTube player with the correct video ID', () => {
+    render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    expect(window.YT.Player).toHaveBeenCalledTimes(1);
+    expect(capturedConfig.videoId).toBe('AHsceDsFEQs');
+  });
+
+  it('configures player for background use (muted, no controls, looped)', () => {
+    render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    const vars = capturedConfig.playerVars;
+    expect(vars.autoplay).toBe(1);
+    expect(vars.mute).toBe(1);
+    expect(vars.loop).toBe(1);
+    expect(vars.controls).toBe(0);
+  });
+
+  it('sets playback rate to 0.5 on ready', () => {
+    render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    const fakeEvent = { target: mockPlayer };
+    capturedConfig.events.onReady(fakeEvent);
+    expect(mockPlayer.setPlaybackRate).toHaveBeenCalledWith(0.5);
+    expect(mockPlayer.playVideo).toHaveBeenCalled();
+  });
+
+  it('destroys the player on unmount', () => {
+    const { unmount } = render(<BrowserRouter><HeroSection settings={defaultSettings} /></BrowserRouter>);
+    unmount();
+    expect(mockPlayer.destroy).toHaveBeenCalled();
   });
 });
