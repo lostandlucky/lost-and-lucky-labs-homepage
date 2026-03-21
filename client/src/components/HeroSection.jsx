@@ -6,7 +6,9 @@ export default function HeroSection({ settings }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Load YouTube IFrame API
+    let cancelled = false;
+
+    // Load YouTube IFrame API script once
     if (!window.YT) {
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
@@ -14,7 +16,7 @@ export default function HeroSection({ settings }) {
     }
 
     function createPlayer() {
-      if (!containerRef.current) return;
+      if (cancelled || !containerRef.current) return;
       playerRef.current = new window.YT.Player(containerRef.current, {
         videoId: 'AHsceDsFEQs',
         playerVars: {
@@ -40,15 +42,23 @@ export default function HeroSection({ settings }) {
     if (window.YT && window.YT.Player) {
       createPlayer();
     } else {
-      window.onYouTubeIframeAPIReady = createPlayer;
+      // The API callback is a global singleton — stash any previous handler
+      // so multiple mounts don't clobber each other.
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+        if (prev) prev();
+        createPlayer();
+      };
     }
 
     return () => {
-      if (playerRef.current?.destroy) playerRef.current.destroy();
+      cancelled = true;
+      if (playerRef.current?.destroy) {
+        playerRef.current.destroy();
+        playerRef.current = null;
+      }
     };
   }, []);
-
-  if (!settings) return null;
 
   return (
     <section
@@ -63,26 +73,28 @@ export default function HeroSection({ settings }) {
         <div ref={containerRef} className="w-full h-full" />
       </div>
       <div className="absolute inset-0 bg-black/50 z-[1]" data-testid="hero-overlay" />
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
-        <h1
-          className="text-4xl md:text-[83px] font-bold text-white uppercase mb-4 tracking-[18px] leading-tight"
-          style={{ textShadow: '6px 3px 8px rgb(0, 0, 0)' }}
-        >
-          {settings.site_title}
-        </h1>
-        <h4
-          className="text-xl md:text-[35px] font-bold text-white mb-8 tracking-[8px]"
-          style={{ textShadow: '6px 3px 8px rgb(0, 0, 0)' }}
-        >
-          {settings.site_tagline}
-        </h4>
-        <Link
-          to="/contact-us"
-          className="inline-block border border-white text-white px-8 py-3 font-body text-sm tracking-[2px] hover:bg-white hover:text-black transition-colors"
-        >
-          {settings.hero_cta_text}
-        </Link>
-      </div>
+      {settings && (
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
+          <h1
+            className="text-4xl md:text-[83px] font-bold text-white uppercase mb-4 tracking-[18px] leading-tight"
+            style={{ textShadow: '6px 3px 8px rgb(0, 0, 0)' }}
+          >
+            {settings.site_title}
+          </h1>
+          <h4
+            className="text-xl md:text-[35px] font-bold text-white mb-8 tracking-[8px]"
+            style={{ textShadow: '6px 3px 8px rgb(0, 0, 0)' }}
+          >
+            {settings.site_tagline}
+          </h4>
+          <Link
+            to="/contact-us"
+            className="inline-block border border-white text-white px-8 py-3 font-body text-sm tracking-[2px] hover:bg-white hover:text-black transition-colors"
+          >
+            {settings.hero_cta_text}
+          </Link>
+        </div>
+      )}
     </section>
   );
 }
