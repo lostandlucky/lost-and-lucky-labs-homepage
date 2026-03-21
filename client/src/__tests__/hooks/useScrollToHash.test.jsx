@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { useScrollToHash } from '../../hooks/useScrollToHash.js';
 
@@ -34,5 +34,28 @@ describe('useScrollToHash', () => {
     });
 
     expect(document.getElementById).not.toHaveBeenCalled();
+  });
+
+  it('uses MutationObserver when element is not yet in the DOM', async () => {
+    const scrollIntoView = vi.fn();
+    vi.spyOn(document, 'getElementById').mockReturnValue(null);
+
+    renderHook(() => useScrollToHash(), {
+      wrapper: wrapper({ initialEntries: ['/#portfolio'] }),
+    });
+
+    expect(scrollIntoView).not.toHaveBeenCalled();
+
+    // Simulate the element appearing in the DOM
+    const mockElement = { scrollIntoView };
+    document.getElementById.mockReturnValue(mockElement);
+    act(() => {
+      document.body.appendChild(document.createElement('div'));
+    });
+
+    // MutationObserver callbacks are microtask-queued in jsdom
+    await vi.waitFor(() => {
+      expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
+    });
   });
 });
