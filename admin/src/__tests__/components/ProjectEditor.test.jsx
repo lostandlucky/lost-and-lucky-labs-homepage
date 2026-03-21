@@ -1,6 +1,6 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
 import ProjectEditor from '../../components/ProjectEditor.jsx';
 
 describe('ProjectEditor', () => {
@@ -42,5 +42,69 @@ describe('ProjectEditor', () => {
     const toggle = screen.getByLabelText(/published/i);
     expect(toggle).toBeInTheDocument();
     fireEvent.click(toggle);
+  });
+
+  describe('fetch on edit', () => {
+    beforeEach(() => {
+      vi.stubGlobal('fetch', vi.fn());
+    });
+
+    it('fetches project data and populates form when :id is in the URL', async () => {
+      const projectData = {
+        id: 42,
+        title: 'Fetched Project',
+        slug: 'fetched-project',
+        description: 'Fetched description',
+        is_published: 1,
+        sort_order: 2,
+        images: [],
+      };
+      fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ project: projectData }),
+      });
+
+      render(
+        <MemoryRouter initialEntries={['/projects/42']}>
+          <Routes>
+            <Route path="/projects/:id" element={<ProjectEditor token="test-token" />} />
+          </Routes>
+        </MemoryRouter>
+      );
+
+      await waitFor(() => {
+        expect(screen.getByLabelText(/title/i)).toHaveValue('Fetched Project');
+      });
+      expect(screen.getByLabelText(/slug/i)).toHaveValue('fetched-project');
+      expect(screen.getByLabelText(/description/i)).toHaveValue('Fetched description');
+      expect(screen.getByText('Edit Project')).toBeInTheDocument();
+      expect(fetch).toHaveBeenCalledWith('/api/admin/projects/42', {
+        headers: { Authorization: 'Bearer test-token' },
+      });
+    });
+
+    it('shows loading state while fetching project data', async () => {
+      let resolveFetch;
+      fetch.mockReturnValueOnce(new Promise((resolve) => { resolveFetch = resolve; }));
+
+      render(
+        <MemoryRouter initialEntries={['/projects/7']}>
+          <Routes>
+            <Route path="/projects/:id" element={<ProjectEditor token="test-token" />} />
+          </Routes>
+        </MemoryRouter>
+      );
+
+      expect(screen.getByText('Loading...')).toBeInTheDocument();
+
+      resolveFetch({
+        ok: true,
+        json: () => Promise.resolve({ project: { id: 7, title: 'Done', slug: 'done', description: '', is_published: 1, sort_order: 0, images: [] } }),
+      });
+
+      await waitFor(() => {
+        expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+      });
+    });
   });
 });
