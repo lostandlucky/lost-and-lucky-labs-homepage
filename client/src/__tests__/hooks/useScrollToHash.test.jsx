@@ -1,16 +1,16 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { useScrollToHash } from '../../hooks/useScrollToHash.js';
 
+function wrapper({ initialEntries = ['/'] } = {}) {
+  return ({ children }) => (
+    <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
+  );
+}
+
 describe('useScrollToHash', () => {
-  let originalHash;
-
-  beforeEach(() => {
-    originalHash = window.location.hash;
-  });
-
   afterEach(() => {
-    window.location.hash = originalHash;
     vi.restoreAllMocks();
   });
 
@@ -19,17 +19,19 @@ describe('useScrollToHash', () => {
     const mockElement = { scrollIntoView };
     vi.spyOn(document, 'getElementById').mockReturnValue(mockElement);
 
-    window.location.hash = '#portfolio';
-    renderHook(() => useScrollToHash());
+    renderHook(() => useScrollToHash(), {
+      wrapper: wrapper({ initialEntries: ['/#portfolio'] }),
+    });
 
     expect(document.getElementById).toHaveBeenCalledWith('portfolio');
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
   });
 
   it('does nothing when no hash is present', () => {
-    window.location.hash = '';
     vi.spyOn(document, 'getElementById');
-    renderHook(() => useScrollToHash());
+    renderHook(() => useScrollToHash(), {
+      wrapper: wrapper({ initialEntries: ['/'] }),
+    });
 
     expect(document.getElementById).not.toHaveBeenCalled();
   });

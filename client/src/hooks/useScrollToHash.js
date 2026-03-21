@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export function useScrollToHash() {
+  const { hash } = useLocation();
+
   useEffect(() => {
-    const hash = window.location.hash;
     if (hash) {
       const id = hash.replace('#', '');
       const element = document.getElementById(id);
@@ -10,5 +12,5 @@ export function useScrollToHash() {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  }, []);
+  }, [hash]);
 }
